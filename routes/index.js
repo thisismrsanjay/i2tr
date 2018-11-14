@@ -18,6 +18,9 @@ router.get('/',(req,res,next)=>{
 router.get('/about',(req,res,next)=>{
     res.render('about',{title:'About'})
 })
+router.get('/examples',(req,res)=>{
+    res.render('examples',{title:'Example'})
+})
 router.get('/contact',(req,res,next)=>{
     res.render('contact',{title:'Contact',
     name:'',

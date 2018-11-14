@@ -11,7 +11,7 @@ https://murmuring-escarpment-61325.herokuapp.com/
 * [x] editor
 * [x] chat (chat box)
 * [x] editor
-* [] Posts
+* [x] Posts
 
 
 
@@ -25,7 +25,6 @@ chat end?
 * [x] facebook origin?
 * [x] promt for changing
 * [x] run 
-* [] email online not working internal bug
 * [] redirect flash while going to /windows/:id
 * []  get a value and print it   
 * [] IE Support
@@ -33,5 +32,8 @@ chat end?
 * [x]  create a window
 * [x]  join
 * [] login is not persistent
-* [] not secure redirect
+* [x] not secure redirect
+* [] pic for user
+ml5.js example 
+physics example try page
 404?

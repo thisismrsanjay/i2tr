@@ -7,13 +7,14 @@ const io = require('socket.io').listen(server);
 const expressValidator = require('express-validator');
 const passport  = require('passport');
 const session =  require('express-session');
+var forceSsl = require('force-ssl-heroku');
 //just requiring it passes it to middeleware idkh
 require('./passport');
 
 const config = require('./config');
 
-const port = process.env.PORT || 8000;
-
+const port = process.env.PORT || 3000;
+app.use(forceSsl);
 
 const mongoose = require('mongoose');
 mongoose.connect(config.database,{ useCreateIndex: true,useNewUrlParser: true });
