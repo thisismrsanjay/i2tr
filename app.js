@@ -12,7 +12,7 @@ require('./passport');
 
 const config = require('./config');
 
-const port = 3000;
+const port = process.env.PORT || 8000;
 
 
 const mongoose = require('mongoose');
@@ -65,6 +65,6 @@ app.get('*',(req,res)=>{
 
 
 
-server.listen(process.env.PORT || port,()=>{
+server.listen(port,()=>{
     console.log('server started at 3000')
 })
