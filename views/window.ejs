@@ -1,0 +1,65 @@
+<% include top %>
+
+   
+</main>
+<link rel="stylesheet" href="/lib/window.css">
+<script src="/lib/window.js"></script>
+<script src="/lib/drag.js"></script>
+
+<link rel="stylesheet" href="/lib/main.css">
+
+
+</head>
+<body>
+ 
+</div>
+  
+<div id="b" style="width:360px;height: 200px;z-index:100;position: absolute;right:20px" >
+    <video  style="width:360px;;position: absolute;border-radius: 20px" id="theirVideoTag" autoplay></video>
+  <div style="width:120px;height:auto;z-index:200;position:absolute;bottom: -76px;right:0px">
+      <video muted style="width:120px;border-radius: 10px" id="myVideoTag" autoplay></video>
+  </div>
+</div>
+   
+     
+
+<div class="trytopnav text-center" style="width:100px;margin-left:36%">
+<div >
+  <!-- <a href="javascript:void(0);" onclick="restack(currentStack)" title="Change Orientation" class =" btn btn-primary" >Rotate</a> -->
+  <button id="sanjayButton"  class="btn btn-primary" onclick="submitTryit(1);">Run &raquo;</button>
+  <span class="w3-right w3-hide-medium w3-hide-small" style="padding:8px 8px 8px 8px;display:block"></span>
+  <span class="w3-right w3-hide-small" style="padding:8px 0;display:block;float:right;"><span id="framesize"></span></span>
+</div>
+
+</div>
+<div id="shield"></div>
+
+<a href="javascript:void(0)" id="dragbar"></a>
+<div id="container">
+
+<div id="menuOverlay" class="w3-overlay w3-transparent" style="cursor:pointer;z-index:4"></div>
+  <div id="textareacontainer" >
+    <div id="textarea">
+      <div id="textareawrapper">
+        <textarea autocomplete="off" id="textareaCode" wrap="logical" spellcheck="false"><!DOCTYPE html>
+
+</textarea>
+        <form id="codeForm" autocomplete="off" style="margin:0px;display:none;">
+          <input type="hidden" name="code" id="code" />
+        </form>
+       </div>
+    </div>
+  </div>
+  <div id="iframecontainer">
+    <div id="iframe">
+      <div id="iframewrapper"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<main>
+<% include chat %>
+<% include bottom %>

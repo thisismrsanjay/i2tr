@@ -1,0 +1,70 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Send Invitation <i class="far fa-smile-wink"></i> </h5>
+          <button id="close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form  method="post">
+            <div class="form-group">
+              <label>Name</label>
+              <input name="name" required="true" type="text" class="form-control" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input name="email" type="email" required="true" class="form-control"  id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Message</label>
+              <textarea name="message" rows="8" type="text" required="true" class="form-control" id="exampleInputPassword1" placeholder="Your Message">
+Join the given ID : <%= user._id %>
+
+OR
+
+goto : https://itutorsanjay.herokuapp.com/window/<%=user._id%>
+              </textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary ">Submit</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+        
+          
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const URL = 'http://localhost:3000/contact';
+    const form  = document.querySelector('form');
+    
+    form.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      const name = document.getElementsByName("name")[0].value;
+      const email =document.getElementsByName("email")[0].value;
+      const message =document.getElementsByName("message")[0].value;
+      const data = {
+        name,
+        email,
+        message
+      }
+      fetch(URL,{
+        method:'POST',
+        body:JSON.stringify(data),
+        headers:{
+          'content-type':'application/json',
+          'accept': 'application/json'
+        }
+      })
+
+      document.querySelector('#close').click();
+       
+    })
+  </script>

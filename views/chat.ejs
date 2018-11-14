@@ -1,0 +1,653 @@
+<input type="hidden" value="<%= user.profile.name %>" id="userData1" />
+<input type="hidden" value="<%= user.profile.picture %>" id="userData2" />
+
+<div style="display: none" id="signalingArea">Signaling Messages:</br></div>
+
+<div id="live-chat"  style="border-radius:10px" class="border border-primary">
+    <header class="navbar navbar-dark bg-primary">
+        <h4 id="chat-user">no user</h4>
+    </header>
+    <div class="chat">
+        <div class="chat-history">
+            
+        </div>
+        
+        <form id="chatForm">
+            <fieldset>
+                <input id="chatInput" autocomplete="off" type="text" placeholder="Type your message…" autofocus>
+                <input type="hidden">
+            </fieldset>
+        </form>
+    </div>
+    <!-- end chat -->
+
+</div>
+
+<input type="hidden" id="windowId" value="<%=windowId %>">
+<script src="/lib/ot.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+
+<script>
+
+
+//-------------------------unchanged
+
+window.onbeforeunload = function() {
+    return "Leaving this page will reset the wizard";
+};
+
+//-------------------dragabble    
+  function handle_mousedown(e){
+    window.my_dragging = {};
+    my_dragging.pageX0 = e.pageX;
+    my_dragging.pageY0 = e.pageY;
+    my_dragging.elem = this;
+    my_dragging.offset0 = $(this).offset();
+    function handle_dragging(e){
+        var left = my_dragging.offset0.left + (e.pageX - my_dragging.pageX0);
+        var top = my_dragging.offset0.top + (e.pageY - my_dragging.pageY0);
+        $(my_dragging.elem)
+        .offset({top: top, left: left});
+    }
+    function handle_mouseup(e){
+        $('body')
+        .off('mousemove', handle_dragging)
+        .off('mouseup', handle_mouseup);
+    }
+    $('body')
+    .on('mouseup', handle_mouseup)
+    .on('mousemove', handle_dragging);
+}
+$('#b').mousedown(handle_mousedown);
+
+
+//-----------editor ---------------------------------------------
+    let EditorClient = ot.EditorClient;
+    let SocketIOAdapter = ot.SocketIOAdapter;
+    let CodeMirrorAdapter = ot.CodeMirrorAdapter;
+
+
+    $('.chat').slideToggle(1, 'swing');
+
+
+    let windowId = $('#windowId').val();
+    let chatForm = $('#chatForm');
+    let message = $('#chatInput');
+    let chatWindow = $('.chat-history');
+    let userData1 = $('#userData1').val();
+    let userData2 = $('#userData2').val();
+    let chatUser = $("#chat-user");
+    let sanjayButton = $("#sanjayButton");
+    
+    let socket = io.connect( { query: `name=${userData1}` });
+    let userData = {
+        name: userData1,
+        picture: userData2
+    }
+
+    sanjayButton.click(()=>{
+        
+        socket.emit('run');
+    });
+
+    socket.on('run click',(data)=>{
+        
+        submitTryit(1);
+    })
+    setTimeout(()=>submitTryit(1), 1000);
+    
+    socket.emit('join window', { window: windowId, username: "username" })
+
+    chatForm.on('submit', function (e) {
+        socket.emit('send message', message.val(), userData);
+        message.val('');
+        e.preventDefault();
+    })
+
+
+
+    //show message
+    socket.on('show message', function (data) {
+        chatWindow.append(`
+            <div class="chat-message clearfix">
+                <img src="${ data.user.picture}" alt="" width="32" height="32">
+                <div class="chat-message-content clearfix">
+                    <span class="chat-time">13:38</span>
+                    <h5>${data.user.name}</h5>
+                    <p>${data.msg}</p>
+                </div>
+            </div>
+            <hr>
+            `)
+    })
+    
+    $('#live-chat header').on('click', function () {
+
+        $('.chat').slideToggle(300, 'swing');
+        $('.chat-message-counter').fadeToggle(100, 'swing');
+
+    })
+    //on dissconnection
+    socket.on('user disconnected',()=>{
+        chatUser.html("offline");
+        $('#live-chat').removeClass('color-ranger');
+    })
+
+
+//--------editor-------------------
+    const myVideoArea = document.querySelector("#myVideoTag");
+    const theirVideoArea = document.querySelector("#theirVideoTag");
+    var signalingArea = document.querySelector("#signalingArea");
+    const configuration = {
+				'iceServers': [{
+					'url': 'stun:stun.l.google.com:19302'
+				}]
+            };
+    let rtcPeerConn;
+    const SIGNAL_ROOM = "signal_room";
+    socket.emit('signal',{"type":"user_here", "message":"Are you ready for a call?", "room":SIGNAL_ROOM});
+    socket.on('signaling_message', function(data) {
+				displaySignalMessage("Signal received: " + data.type);
+				
+				//Setup the RTC Peer Connection object
+				if (!rtcPeerConn)
+					startSignaling();
+					
+				if (data.type != "user_here") {
+					var message = JSON.parse(data.message);
+					if (message.sdp) {
+						rtcPeerConn.setRemoteDescription(new RTCSessionDescription(message.sdp), function () {
+							// if we received an offer, we need to answer
+							if (rtcPeerConn.remoteDescription.type == 'offer') {
+								rtcPeerConn.createAnswer(sendLocalDesc, logError);
+							}
+						}, logError);
+					}
+					else {
+						rtcPeerConn.addIceCandidate(new RTCIceCandidate(message.candidate));
+					}
+				}
+				
+			});
+			
+			function startSignaling() {
+                displaySignalMessage("starting signaling...");
+                
+                chatUser.html("online") ;
+                $('#live-chat').addClass('color-ranger');
+
+                
+				rtcPeerConn = new webkitRTCPeerConnection(configuration);
+				
+				// send any ice candidates to the other peer
+				rtcPeerConn.onicecandidate = function (evt) {
+					if (evt.candidate)
+						socket.emit('signal',{"type":"ice candidate", "message": JSON.stringify({ 'candidate': evt.candidate }), "room":SIGNAL_ROOM});
+					displaySignalMessage("completed that ice candidate...");
+				};
+				
+				// let the 'negotiationneeded' event trigger offer generation
+				rtcPeerConn.onnegotiationneeded = function () {
+					displaySignalMessage("on negotiation called");
+					rtcPeerConn.createOffer(sendLocalDesc, logError);
+				}
+				
+				// once remote stream arrives, show it in the remote video element
+				rtcPeerConn.onaddstream = function (evt) {
+                    displaySignalMessage("going to add their stream...");
+                    
+                    
+
+                    theirVideoArea.srcObject=evt.stream;
+					
+				};
+				
+				// get a local stream, show it in our video tag and add it to be sent
+				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+				navigator.getUserMedia({
+					'audio': true,
+					'video': true
+				}, function (stream) {
+                    displaySignalMessage("going to display my stream...");
+                   
+                    
+                    myVideoArea.srcObject= stream;
+                    
+					rtcPeerConn.addStream(stream);
+				}, logError);
+			  
+			}
+			
+			function sendLocalDesc(desc) {
+				rtcPeerConn.setLocalDescription(desc, function () {
+					displaySignalMessage("sending local description");
+					socket.emit('signal',{"type":"SDP", "message": JSON.stringify({ 'sdp': rtcPeerConn.localDescription }), "room":SIGNAL_ROOM});
+				}, logError);
+			}
+			function logError(error) {
+				displaySignalMessage(error.name + ': ' + error.message);
+			}
+			function displaySignalMessage(message) {
+                signalingArea.innerHTML = signalingArea.innerHTML + "<br/>" + message;
+                
+			}
+			
+
+
+
+    //console.clear();
+    submitTryit();
+
+
+    function submitTryit(n) {
+        if (window.editor) {
+            window.editor.save();
+        }
+        var text = document.getElementById("textareaCode").value;
+        var ifr = document.createElement("iframe");
+        ifr.setAttribute("frameborder", "0");
+        ifr.setAttribute("id", "iframeResult");
+        ifr.setAttribute("name", "iframeResult");
+        document.getElementById("iframewrapper").innerHTML = "";
+        document.getElementById("iframewrapper").appendChild(ifr);
+        if (loadSave == true) {
+            ifr.setAttribute("src", "/code/opentext.htm");
+        } else if (fileID != "" && loadSave == false) {
+            var t = text;
+            t = t.replace(/=/gi, "w3equalsign");
+            t = t.replace(/\+/gi, "w3plussign");
+            var pos = t.search(/script/i)
+            while (pos > 0) {
+                t = t.substring(0, pos) + "w3" + t.substr(pos, 3) + "w3" + t.substr(pos + 3, 3) + "tag" + t.substr(pos + 6);
+                pos = t.search(/script/i);
+            }
+            document.getElementById("code").value = t;
+            document.getElementById("codeForm").action = "https://tryit.w3schools.com/tryit_view.php?x=" + Math.random();
+            document.getElementById('codeForm').method = "post";
+            document.getElementById('codeForm').acceptCharset = "utf-8";
+            document.getElementById('codeForm').target = "iframeResult";
+            document.getElementById("codeForm").submit();
+        } else {
+            var ifrw = (ifr.contentWindow) ? ifr.contentWindow : (ifr.contentDocument.document) ? ifr.contentDocument.document : ifr.contentDocument;
+            ifrw.document.open();
+            try{
+                ifrw.document.write(text);
+            }catch{
+                console.error("Wrong javascript syntax");
+            }
+            ifrw.document.close();
+            //23.02.2016: contentEditable is set to true, to fix text-selection (bug) in firefox.
+            //(and back to false to prevent the content from being editable)
+            //(To reproduce the error: Select text in the result window with, and without, the contentEditable statements below.)  
+            if (ifrw.document.body && !ifrw.document.body.isContentEditable) {
+                ifrw.document.body.contentEditable = true;
+                ifrw.document.body.contentEditable = false;
+            }
+        }
+    }
+    
+    var currentStack = true;
+    if ((window.screen.availWidth <= 768 && window.innerHeight > window.innerWidth) || "" == " horizontal") { restack(true); }
+    function restack(horizontal) {
+        var tc, ic, t, i, c, f, sv, sh, d, height, flt, width;
+        tc = document.getElementById("textareacontainer");
+        ic = document.getElementById("iframecontainer");
+        t = document.getElementById("textarea");
+        i = document.getElementById("iframe");
+        c = document.getElementById("container");
+        sv = document.getElementById("stackV");
+        sh = document.getElementById("stackH");
+        tc.className = tc.className.replace("horizontal", "");
+        ic.className = ic.className.replace("horizontal", "");
+        t.className = t.className.replace("horizontal", "");
+        i.className = i.className.replace("horizontal", "");
+        c.className = c.className.replace("horizontal", "");
+        if (sv) { sv.className = sv.className.replace("horizontal", "") };
+        if (sv) { sh.className = sh.className.replace("horizontal", "") };
+        stack = "";
+        if (horizontal) {
+            tc.className = tc.className + " horizontal";
+            ic.className = ic.className + " horizontal";
+            t.className = t.className + " horizontal";
+            i.className = i.className + " horizontal";
+            c.className = c.className + " horizontal";
+            if (sv) { sv.className = sv.className + " horizontal" };
+            if (sv) { sh.className = sh.className + " horizontal" };
+            stack = " horizontal";
+            document.getElementById("textareacontainer").style.height = "50%";
+            document.getElementById("iframecontainer").style.height = "50%";
+            document.getElementById("textareacontainer").style.width = "100%";
+            document.getElementById("iframecontainer").style.width = "100%";
+            currentStack = false;
+        } else {
+            document.getElementById("textareacontainer").style.height = "100%";
+            document.getElementById("iframecontainer").style.height = "100%";
+            document.getElementById("textareacontainer").style.width = "50%";
+            document.getElementById("iframecontainer").style.width = "50%";
+            currentStack = true;
+        }
+        fixDragBtn();
+        showFrameSize();
+    }
+    function showFrameSize() {
+        var t;
+        var width, height;
+        width = Number(w3_getStyleValue(document.getElementById("iframeResult"), "width").replace("px", "")).toFixed();
+        height = Number(w3_getStyleValue(document.getElementById("iframeResult"), "height").replace("px", "")).toFixed();
+        document.getElementById("framesize").innerHTML = "Result Size: <span>" + width + " x " + height + "</span>";
+    }
+    var dragging = false;
+    var stack;
+    function fixDragBtn() {
+        var textareawidth, leftpadding, dragleft, containertop, buttonwidth
+        var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
+        if (stack != " horizontal") {
+            document.getElementById("dragbar").style.width = "5px";
+            textareasize = Number(w3_getStyleValue(document.getElementById("textareawrapper"), "width").replace("px", ""));
+            leftpadding = Number(w3_getStyleValue(document.getElementById("textarea"), "padding-left").replace("px", ""));
+            buttonwidth = Number(w3_getStyleValue(document.getElementById("dragbar"), "width").replace("px", ""));
+            textareaheight = w3_getStyleValue(document.getElementById("textareawrapper"), "height");
+            dragleft = textareasize + leftpadding + (leftpadding / 2) - (buttonwidth / 2);
+            document.getElementById("dragbar").style.top = containertop + "px";
+            document.getElementById("dragbar").style.left = dragleft + "px";
+            document.getElementById("dragbar").style.height = textareaheight;
+            document.getElementById("dragbar").style.cursor = "col-resize";
+
+        } else {
+            document.getElementById("dragbar").style.height = "5px";
+            if (window.getComputedStyle) {
+                textareawidth = window.getComputedStyle(document.getElementById("textareawrapper"), null).getPropertyValue("height");
+                textareaheight = window.getComputedStyle(document.getElementById("textareawrapper"), null).getPropertyValue("width");
+                leftpadding = window.getComputedStyle(document.getElementById("textarea"), null).getPropertyValue("padding-top");
+                buttonwidth = window.getComputedStyle(document.getElementById("dragbar"), null).getPropertyValue("height");
+            } else {
+                dragleft = document.getElementById("textareawrapper").currentStyle["width"];
+            }
+            textareawidth = Number(textareawidth.replace("px", ""));
+            leftpadding = Number(leftpadding.replace("px", ""));
+            buttonwidth = Number(buttonwidth.replace("px", ""));
+            dragleft = containertop + textareawidth + leftpadding + (leftpadding / 2);
+            document.getElementById("dragbar").style.top = dragleft + "px";
+            document.getElementById("dragbar").style.left = "5px";
+            document.getElementById("dragbar").style.width = textareaheight;
+            document.getElementById("dragbar").style.cursor = "row-resize";
+        }
+    }
+    function dragstart(e) {
+        e.preventDefault();
+        dragging = true;
+        var main = document.getElementById("iframecontainer");
+    }
+    function dragmove(e) {
+        if (dragging) {
+            document.getElementById("shield").style.display = "block";
+            if (stack != " horizontal") {
+                var percentage = (e.pageX / window.innerWidth) * 100;
+                if (percentage > 5 && percentage < 98) {
+                    var mainPercentage = 100 - percentage;
+                    document.getElementById("textareacontainer").style.width = percentage + "%";
+                    document.getElementById("iframecontainer").style.width = mainPercentage + "%";
+                    fixDragBtn();
+                }
+            } else {
+                var containertop = Number(w3_getStyleValue(document.getElementById("container"), "top").replace("px", ""));
+                var percentage = ((e.pageY - containertop + 20) / (window.innerHeight - containertop + 20)) * 100;
+                if (percentage > 5 && percentage < 98) {
+                    var mainPercentage = 100 - percentage;
+                    document.getElementById("textareacontainer").style.height = percentage + "%";
+                    document.getElementById("iframecontainer").style.height = mainPercentage + "%";
+                    fixDragBtn();
+                }
+            }
+            showFrameSize();
+        }
+    }
+    function dragend() {
+        document.getElementById("shield").style.display = "none";
+        dragging = false;
+        if (window.editor) {
+            window.editor.refresh();
+        }
+    }
+    if (window.addEventListener) {
+        document.getElementById("dragbar").addEventListener("mousedown", function (e) { dragstart(e); });
+        document.getElementById("dragbar").addEventListener("touchstart", function (e) { dragstart(e); });
+        window.addEventListener("mousemove", function (e) { dragmove(e); });
+        window.addEventListener("touchmove", function (e) { dragmove(e); });
+        window.addEventListener("mouseup", dragend);
+        window.addEventListener("touchend", dragend);
+        window.addEventListener("load", fixDragBtn);
+        window.addEventListener("load", showFrameSize);
+    }
+
+
+
+    function colorcoding() {
+        var ua = navigator.userAgent;
+        //Opera Mini refreshes the page when trying to edit the textarea.
+        if (ua && ua.toUpperCase().indexOf("OPERA MINI") > -1) { return false; }
+        window.editor = CodeMirror.fromTextArea(document.getElementById("textareaCode"), {
+            mode: "text/html",
+            htmlMode: true,
+            lineNumbers: true,
+            lineWrapping: true,
+            smartIndent: false,
+            addModeClass: true
+        });
+        // window.editor.on("change", function () {window.editor.save();});
+    }
+    colorcoding();
+
+    var cmClient;
+    function init(str, revision, clients, serverAdapter) {
+        editor.setValue(str);
+        cmClient = window.cmClient = new EditorClient(
+            revision, clients, serverAdapter, new CodeMirrorAdapter(editor)
+        );
+    }
+
+    socket.on('doc', function (obj) {
+        init(obj.str, obj.revision, obj.clients, new SocketIOAdapter(socket));
+    });
+
+    function w3_getStyleValue(elmnt, style) {
+        if (window.getComputedStyle) {
+            return window.getComputedStyle(elmnt, null).getPropertyValue(style);
+        } else {
+            return elmnt.currentStyle[style];
+        }
+    }
+
+
+
+
+
+
+</script>
+<style>
+    body {
+        background: #e9e9e9;
+        color: #5f5858;
+        font: Verdana;
+        margin: 0;
+        z-index: 100;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    fieldset {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    h4,
+    h5 {
+        line-height: 1.5em;
+        margin: 0;
+    }
+
+    hr {
+        background: #e9e9e9;
+        border: 0;
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        height: 1px;
+        margin: 0;
+        min-height: 1px;
+    }
+
+    img {
+        border: 0;
+        display: block;
+        height: auto;
+        max-width: 100%;
+    }
+
+    input {
+        border: 0;
+        color: inherit;
+        font-family: inherit;
+        font-size: 100%;
+        line-height: normal;
+        margin: 0;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .clearfix {
+        *zoom: 1;
+    }
+
+    /* For IE 6/7 */
+
+    .clearfix:before,
+    .clearfix:after {
+        content: "";
+        display: table;
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
+
+    /* ---------- LIVE-CHAT ---------- */
+
+    #live-chat {
+        bottom: 0;
+        font-size: 12px;
+        right: 24px;
+        position: fixed;
+        width: 300px;
+    }
+
+    #live-chat header {
+        background: #293239;
+        border-radius: 5px 5px 0 0;
+        color: #fff;
+        cursor: pointer;
+        padding: 12px 20px;
+    }
+    .color-ranger h4:before{
+            background: #00ff3c !important;
+        }
+    #live-chat h4:before {
+        background: #ff0000;
+        border-radius: 50%;
+        content: "";
+        display: inline-block;
+        height: 8px;
+        margin: 0 8px 0 0;
+        width: 8px;
+    }
+    
+
+    #live-chat h4 {
+        font-size: 12px;
+    }
+
+    #live-chat h5 {
+        font-size: 10px;
+    }
+
+    #live-chat form {
+        padding: 24px;
+    }
+
+    #live-chat input[type="text"] {
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 8px;
+        outline: none;
+        width: 234px;
+    }
+
+    .chat-message-counter {
+        background: #e62727;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        display: none;
+        font-size: 12px;
+        font-weight: bold;
+        height: 28px;
+        left: 0;
+        line-height: 28px;
+        margin: -15px 0 0 -15px;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 28px;
+    }
+
+    .chat-close {
+        background: #1b2126;
+        border-radius: 50%;
+        color: #fff;
+        display: block;
+        float: right;
+        font-size: 10px;
+        height: 16px;
+        line-height: 16px;
+        margin: 2px 0 0 0;
+        text-align: center;
+        width: 16px;
+    }
+
+    .chat {
+        background: #fff;
+    }
+
+    .chat-history {
+        height: 252px;
+        padding: 8px 24px;
+        overflow-y: scroll;
+    }
+
+    .chat-message {
+        margin: 16px 0;
+    }
+
+    .chat-message img {
+        border-radius: 50%;
+        float: left;
+    }
+
+    .chat-message-content {
+        margin-left: 56px;
+    }
+
+    .chat-time {
+        float: right;
+        font-size: 10px;
+    }
+
+    .chat-feedback {
+        font-style: italic;
+        margin: 0 0 0 80px;
+    }
+</style>

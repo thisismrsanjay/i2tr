@@ -1,0 +1,32 @@
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Join Window</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <a target="_blank" href="http://gmail.com">Go to Gmail</a> <br>
+                    <label >Paste Window ID :</label>
+                    <input name="id" id="windowID" type="text" required="true" class="form-control" placeholder="id">
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="join" class="btn btn-primary">Join</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+            const input  = document.querySelector('#windowID');
+            const button  = document.querySelector('#join');
+            
+            button.addEventListener('click',(event)=>{
+              location.replace("https://itutorsanjay.herokuapp.com/window/"+input.value.trim())
+            })
+      </script>

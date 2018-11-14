@@ -1,0 +1,57 @@
+<% include top %>
+<br>
+<br>
+<div class="container  ">
+    <div class="row ">
+        <div class="col-md-6  mx-auto ">
+            <form action="/login" method="post">
+                <div class="card border border-primary p-4" style="border-radius: 15px 50px 30px;">
+
+                    <%  try{%>
+                        <% for(var i =0;i< error.length;i++){%>
+                            <div style="border-radius: 15px 50px 30px 15px ;" class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Holy guacamole!</strong><%= error[i] %>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>   
+
+                        <%}%>
+                    <%}catch (err){}%>
+
+                    <div class="card-body">
+                        <h1 class="text-center font-weight-bold text-primary">Login</h1>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input style="border-radius: 8px;" required="true" name="email" type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label style="border-radius: 8px;" for="exampleInputPassword1">Password</label>
+                            <input required="true" type="password" name="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <br>
+                        <br>
+                        <h3 class="text-muted text-center mb-4">or login with</h3>
+                        <div class="" style="display: flex; justify-content: center;">
+                            <a href="/auth/facebook" style="background:#3B5998 " class="btn btn-lg btn-success m-2  "> Facebook</a>
+                            <a href="/auth/google" style="background:#DB4437" class="btn btn-lg btn-danger  m-2">Google </a>
+                          </div><br>
+                          <h5 class="text-muted text-center mt-4">New here?</h5>
+                          <h4  class="text-muted text-center"><a href="/register">SIGNUP</a> </h4>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<% include bottom %>
