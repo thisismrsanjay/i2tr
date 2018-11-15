@@ -10,6 +10,8 @@ const session =  require('express-session');
 var forceSsl = require('force-ssl-heroku');
 //just requiring it passes it to middeleware idkh
 require('./passport');
+var flash=require("connect-flash");
+app.use(flash());
 
 const config = require('./config');
 

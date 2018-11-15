@@ -27,6 +27,11 @@ passport.use('local-login',new LocalStrategy({
                 message:'invalid email'
             })
         }
+        if(user.password== undefined){
+            return done(null,false,{
+                message:'invalid password or email'
+            })
+        }
         bcrypt.compare(password,user.password,(err,isMatch)=>{
             if(err)throw err;
             if(isMatch){
