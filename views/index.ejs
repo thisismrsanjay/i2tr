@@ -49,7 +49,26 @@
   <h4 class="text-danger mt-3" >This Website only Supports Chrome Browser</h4>
   <a class="btn btn-primary" href="https://www.google.com/chrome/">Download Chrome</a>
 </div>
+
+
+
+
+
+  <script>
+        $(document).ready(function() {
+    var isshow = localStorage.getItem('isshow');
+    if (isshow== null) {
+        localStorage.setItem('isshow', 1);
+
+        // Show popup here
+        $("#myModal").modal();
+    }
+});
       
+  </script>
+
+
+
       <style>
         #box {
         width:200px;
