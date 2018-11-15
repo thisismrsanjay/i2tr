@@ -46,7 +46,7 @@ router.post('/contact',(req,res,next)=>{
     }else{
         let mail={
             from:'iTutor',
-            to:'thisismrsanjay@gmail.com',
+            to:req.body.email,
             subject:'Message from iTutor',
             text:req.body.message
         }
