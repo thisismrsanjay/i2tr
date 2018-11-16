@@ -27,46 +27,345 @@
 
         </div>
         <div class="col-lg-4 col-md-6">
-                <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="/example/rain.PNG" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Rain Stimulation </h5>
-                            <p class="card-text"> rain stimuation in javascript.</p>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rain">Code</a>
-                        </div>
-                    </div>
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="/example/rain.PNG" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Rain Stimulation </h5>
+                    <p class="card-text"> rain stimuation in javascript.</p>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#rain">Code</a>
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-4 col-md-6">
-                <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="/example/timer.PNG" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">React Timer Application </h5>
-                            <p class="card-text"> React Timer javascript.</p>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#timer">Code</a>
-                        </div>
-                    </div>
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="/example/calculator.PNG" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Simple Calculator </h5>
+                    <p class="card-text"> simple html css calculator.</p>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#calculator">Code</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="/example/timer.PNG" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">React Timer Application </h5>
+                    <p class="card-text"> React Timer javascript.</p>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#timer">Code</a>
+                </div>
+            </div>
         </div>
     </div>
 
-    
-    
+
+
 </div>
 
 
+<div class="modal fade" id="calculator" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Calculator Example</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea spellcheck="false" class="form-control" name="" id="" cols="20" rows="30">
+<html>
+                        <head>
+                            <title></title>
+                        </head>
+                        
+                        
+                        
+                        <style type="text/css">
+                        
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            font: bold 14px Arial, sans-serif;
+                        }
+                        
+                        
+                        html {
+                            height: 100%;
+                            background: white;
+                            background: radial-gradient(circle, #fff 20%, #ccc);
+                            background-size: cover;
+                        }
+                        
+                        /* Using box shadows to create 3D effects */
+                        #calculator {
+                            width: 325px;
+                            height: auto;
+                            
+                            margin: 100px auto;
+                            padding: 20px 20px 9px;
+                            
+                            background: #9dd2ea;
+                            background: linear-gradient(#9dd2ea, #8bceec);
+                            border-radius: 3px;
+                            box-shadow: 0px 4px #009de4, 0px 10px 15px rgba(0, 0, 0, 0.2);
+                        }
+                        
+                        /* Top portion */
+                        .top span.clear {
+                            float: left;
+                        }
+                        
+                        /* Inset shadow on the screen to create indent */
+                        .top .screen {
+                            height: 40px;
+                            width: 212px;
+                            
+                            float: right;
+                            
+                            padding: 0 10px;
+                            
+                            background: rgba(0, 0, 0, 0.2);
+                            border-radius: 3px;
+                            box-shadow: inset 0px 4px rgba(0, 0, 0, 0.2);
+                            
+                            /* Typography */
+                            font-size: 17px;
+                            line-height: 40px;
+                            color: white;
+                            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+                            text-align: right;
+                            letter-spacing: 1px;
+                        }
+                        
+                        /* Clear floats */
+                        .keys, .top {overflow: hidden;}
+                        
+                        /* Applying same to the keys */
+                        .keys span, .top span.clear {
+                            float: left;
+                            position: relative;
+                            top: 0;
+                            
+                            cursor: pointer;
+                            
+                            width: 66px;
+                            height: 36px;
+                            
+                            background: white;
+                            border-radius: 3px;
+                            box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+                            
+                            margin: 0 7px 11px 0;
+                            
+                            color: #888;
+                            line-height: 36px;
+                            text-align: center;
+                            
+                            /* prevent selection of text inside keys */
+                            user-select: none;
+                            
+                            /* Smoothing out hover and active states using css3 transitions */
+                            transition: all 0.2s ease;
+                        }
+                        
+                        /* Remove right margins from operator keys */
+                        /* style different type of keys (operators/evaluate/clear) differently */
+                        .keys span.operator {
+                            background: #FFF0F5;
+                            margin-right: 0;
+                        }
+                        
+                        .keys span.eval {
+                            background: #f1ff92;
+                            box-shadow: 0px 4px #9da853;
+                            color: #888e5f;
+                        }
+                        
+                        .top span.clear {
+                            background: #ff9fa8;
+                            box-shadow: 0px 4px #ff7c87;
+                            color: white;
+                        }
+                        
+                        /* Some hover effects */
+                        .keys span:hover {
+                            background: #9c89f6;
+                            box-shadow: 0px 4px #6b54d3;
+                            color: white;
+                        }
+                        
+                        .keys span.eval:hover {
+                            background: #abb850;
+                            box-shadow: 0px 4px #717a33;
+                            color: #ffffff;
+                        }
+                        
+                        .top span.clear:hover {
+                            background: #f68991;
+                            box-shadow: 0px 4px #d3545d;
+                            color: white;
+                        }
+                        
+                        /* Simulating "pressed" effect on active state of the keys by removing the box-shadow and moving the keys down a bit */
+                        .keys span:active {
+                            box-shadow: 0px 0px #6b54d3;
+                            top: 4px;
+                        }
+                        
+                        .keys span.eval:active {
+                            box-shadow: 0px 0px #717a33;
+                            top: 4px;
+                        }
+                        
+                        .top span.clear:active {
+                            top: 4px;
+                            box-shadow: 0px 0px #d3545d;
+                        }
+                        
+                        </style>
+                        <body>
+                        <div id="calculator">
+                            <!-- Screen and clear key -->
+                            <div class="top">
+                                <span class="clear">C</span>
+                                <div class="screen"></div>
+                            </div>
+                            
+                            <div class="keys">
+                                <!-- operators and other keys -->
+                                <span>7</span>
+                                <span>8</span>
+                                <span>9</span>
+                                <span class="operator">+</span>
+                                <span>4</span>
+                                <span>5</span>
+                                <span>6</span>
+                                <span class="operator">-</span>
+                                <span>1</span>
+                                <span>2</span>
+                                <span>3</span>
+                                <span class="operator">÷</span>
+                                <span>0</span>
+                                <span>.</span>
+                                <span class="eval">=</span>
+                                <span class="operator">x</span>
+                            </div>
+                        </div>
+                        </body>
+                        
+                        <script type="text/javascript">
+
+                            // Get all the keys from document
+                            var keys = document.querySelectorAll('#calculator span');
+                            var operators = ['+', '-', 'x', '÷'];
+                            var decimalAdded = false;
+
+                            // Add onclick event to all the keys and perform operations
+                            for (var i = 0; i < keys.length; i++) {
+                                keys[i].onclick = function (e) {
+                                    // Get the input and button values
+                                    var input = document.querySelector('.screen');
+                                    var inputVal = input.innerHTML;
+                                    var btnVal = this.innerHTML;
+
+                                    // Now, just append the key values (btnValue) to the input string and finally use javascript's eval function to get the result
+                                    // If clear key is pressed, erase everything
+                                    if (btnVal == 'C') {
+                                        input.innerHTML = '';
+                                        decimalAdded = false;
+                                    }
+
+                                    // If eval key is pressed, calculate and display the result
+                                    else if (btnVal == '=') {
+                                        var equation = inputVal;
+                                        var lastChar = equation[equation.length - 1];
+
+                                        // Replace all instances of x and ÷ with * and / respectively. This can be done easily using regex and the 'g' tag which will replace all instances of the matched character/substring
+                                        equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
+
+                                        // Final thing left to do is checking the last character of the equation. If it's an operator or a decimal, remove it
+                                        if (operators.indexOf(lastChar) > -1 || lastChar == '.')
+                                            equation = equation.replace(/.$/, '');
+
+                                        if (equation)
+                                            input.innerHTML = eval(equation);
+
+                                        decimalAdded = false;
+                                    }
+
+                                    // Basic functionality of the calculator is complete. But there are some problems like 
+                                    // 1. No two operators should be added consecutively.
+                                    // 2. The equation shouldn't start from an operator except minus
+                                    // 3. not more than 1 decimal should be there in a number
+
+                                    // We'll fix these issues using some simple checks
+
+                                    // indexOf works only in IE9+
+                                    else if (operators.indexOf(btnVal) > -1) {
+                                        // Operator is clicked
+                                        // Get the last character from the equation
+                                        var lastChar = inputVal[inputVal.length - 1];
+
+                                        // Only add operator if input is not empty and there is no operator at the last
+                                        if (inputVal != '' && operators.indexOf(lastChar) == -1)
+                                            input.innerHTML += btnVal;
+
+                                        // Allow minus if the string is empty
+                                        else if (inputVal == '' && btnVal == '-')
+                                            input.innerHTML += btnVal;
+
+                                        // Replace the last operator (if exists) with the newly pressed operator
+                                        if (operators.indexOf(lastChar) > -1 && inputVal.length > 1) {
+                                            // Here, '.' matches any character while $ denotes the end of string, so anything (will be an operator in this case) at the end of string will get replaced by new operator
+                                            input.innerHTML = inputVal.replace(/.$/, btnVal);
+                                        }
+
+                                        decimalAdded = false;
+                                    }
+
+                                    // Now only the decimal problem is left. We can solve it easily using a flag 'decimalAdded' which we'll set once the decimal is added and prevent more decimals to be added once it's set. It will be reset when an operator, eval or clear key is pressed.
+                                    else if (btnVal == '.') {
+                                        if (!decimalAdded) {
+                                            input.innerHTML += btnVal;
+                                            decimalAdded = true;
+                                        }
+                                    }
+
+                                    // if any other key is pressed, just append it
+                                    else {
+                                        input.innerHTML += btnVal;
+                                    }
+
+                                    // prevent page jumps
+                                    e.preventDefault();
+                                }
+                            }
+                        </script>
+                        
+                        </html>
+                        
+          </textarea>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 <div class="modal fade" id="timer" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Physics Ball Code</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <textarea spellcheck="false" class="form-control" name="" id="" cols="20" rows="30">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Physics Ball Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea spellcheck="false" class="form-control" name="" id="" cols="20" rows="30">
 <html>
 <head>
 </head>
@@ -156,24 +455,24 @@
 </body>
 </html>
               </textarea>
-                </div>
-    
             </div>
+
         </div>
     </div>
+</div>
 
 
 <div class="modal fade" id="rain" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Physics Ball Code</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <textarea spellcheck="false" class="form-control" name="" id="" cols="20" rows="30">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">FireWorks Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea spellcheck="false" class="form-control" name="" id="" cols="20" rows="30">
                             <div id="instructions"></div>
                             <canvas id="canvas">Canvas is not supported in your browser</canvas>
                             
@@ -208,380 +507,380 @@
                             </style>
                             
                             <script type="text/javascript">
-                            // Falling rain simulation using 2D canvas
-                            // - vanilla JS, no frameworks
-                            // - framerate independent physics
-                            // - slow-mo / fast-forward support via demo.speed
-                            // - supports high-DPI screens
-                            // - falling rain particles are drawn as vector lines
-                            // - splash particles are lazily pre-rendered so gradients aren't computed each frame
-                            // - all particles make use of object pooling to further boost performance
-                            
-                            // initialize
-                            document.addEventListener("DOMContentLoaded", function() {
-                                demo.init();
-                                window.addEventListener('resize', demo.resize);
-                            });
-                            
-                            // demo namespace
-                            var demo = {
-                                // CUSTOMIZABLE PROPERTIES
-                                // - physics speed multiplier: allows slowing down or speeding up simulation
-                                speed: 1,
-                                // - color of particles
-                                color: {
-                                    r: '80',
-                                    g: '175',
-                                    b: '255',
-                                    a: '0.5'
-                                },
-                                
-                                // END CUSTOMIZATION
-                                // whether demo is running
-                                started: false,
-                                // canvas and associated context references
-                                canvas: null,
-                                ctx: null,
-                                // viewport dimensions (DIPs)
-                                width: 0,
-                                height: 0,
-                                // devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
-                                dpr: window.devicePixelRatio || 1,
-                                // time since last drop
-                                drop_time: 0,
-                                // ideal time between drops (changed with mouse/finger)
-                                drop_delay: 25,
-                                // wind applied to rain (changed with mouse/finger)
-                                wind: 4,
-                                // color of rain (set in init)
-                                rain_color: null,
-                                rain_color_clear: null,
-                                // rain particles
-                                rain: [],
-                                rain_pool: [],
-                                // rain droplet (splash) particles
-                                drops: [],
-                                drop_pool: []
-                            };
-                            
-                            // demo initialization (should only run once)
-                            demo.init = function() {
-                                if (!demo.started) {
-                                    demo.started = true;
-                                    demo.canvas = document.getElementById('canvas');
-                                    demo.ctx = demo.canvas.getContext('2d');
-                                    var c = demo.color;
-                                    demo.rain_color = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')';
-                                    demo.rain_color_clear = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)';
-                                    demo.resize();
-                                    Ticker.addListener(demo.step);
-                                    
-                                    // 
-                                    const gui = new dat.GUI();
-                                    gui.add(demo, 'speed', 0.2, 2);
-                                    
-                                    // fade out instructions after a few seconds
-                                    var instructions = document.getElementById('instructions');
-                                    setTimeout(function() {
-                                        instructions.style.opacity = 0;
-                                        setTimeout(function(){
-                                            instructions.parentNode.removeChild(instructions);
-                                        }, 2000);
-                                    }, 4000);
+                                // Falling rain simulation using 2D canvas
+                                // - vanilla JS, no frameworks
+                                // - framerate independent physics
+                                // - slow-mo / fast-forward support via demo.speed
+                                // - supports high-DPI screens
+                                // - falling rain particles are drawn as vector lines
+                                // - splash particles are lazily pre-rendered so gradients aren't computed each frame
+                                // - all particles make use of object pooling to further boost performance
+
+                                // initialize
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    demo.init();
+                                    window.addEventListener('resize', demo.resize);
+                                });
+
+                                // demo namespace
+                                var demo = {
+                                    // CUSTOMIZABLE PROPERTIES
+                                    // - physics speed multiplier: allows slowing down or speeding up simulation
+                                    speed: 1,
+                                    // - color of particles
+                                    color: {
+                                        r: '80',
+                                        g: '175',
+                                        b: '255',
+                                        a: '0.5'
+                                    },
+
+                                    // END CUSTOMIZATION
+                                    // whether demo is running
+                                    started: false,
+                                    // canvas and associated context references
+                                    canvas: null,
+                                    ctx: null,
+                                    // viewport dimensions (DIPs)
+                                    width: 0,
+                                    height: 0,
+                                    // devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
+                                    dpr: window.devicePixelRatio || 1,
+                                    // time since last drop
+                                    drop_time: 0,
+                                    // ideal time between drops (changed with mouse/finger)
+                                    drop_delay: 25,
+                                    // wind applied to rain (changed with mouse/finger)
+                                    wind: 4,
+                                    // color of rain (set in init)
+                                    rain_color: null,
+                                    rain_color_clear: null,
+                                    // rain particles
+                                    rain: [],
+                                    rain_pool: [],
+                                    // rain droplet (splash) particles
+                                    drops: [],
+                                    drop_pool: []
+                                };
+
+                                // demo initialization (should only run once)
+                                demo.init = function () {
+                                    if (!demo.started) {
+                                        demo.started = true;
+                                        demo.canvas = document.getElementById('canvas');
+                                        demo.ctx = demo.canvas.getContext('2d');
+                                        var c = demo.color;
+                                        demo.rain_color = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + c.a + ')';
+                                        demo.rain_color_clear = 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)';
+                                        demo.resize();
+                                        Ticker.addListener(demo.step);
+
+                                        // 
+                                        const gui = new dat.GUI();
+                                        gui.add(demo, 'speed', 0.2, 2);
+
+                                        // fade out instructions after a few seconds
+                                        var instructions = document.getElementById('instructions');
+                                        setTimeout(function () {
+                                            instructions.style.opacity = 0;
+                                            setTimeout(function () {
+                                                instructions.parentNode.removeChild(instructions);
+                                            }, 2000);
+                                        }, 4000);
+                                    }
                                 }
-                            }
-                            
-                            // (re)size canvas (clears all particles)
-                            demo.resize = function() {
-                                // localize common references
-                                var rain = demo.rain;
-                                var drops = demo.drops;
-                                // recycle particles
-                                for (var i = rain.length - 1; i >= 0; i--) {
+
+                                // (re)size canvas (clears all particles)
+                                demo.resize = function () {
+                                    // localize common references
+                                    var rain = demo.rain;
+                                    var drops = demo.drops;
+                                    // recycle particles
+                                    for (var i = rain.length - 1; i >= 0; i--) {
                                         rain.pop().recycle();
-                                }
-                                for (var i = drops.length - 1; i >= 0; i--) {
+                                    }
+                                    for (var i = drops.length - 1; i >= 0; i--) {
                                         drops.pop().recycle();
-                                }
-                                // resize
-                                demo.width = window.innerWidth;
-                                demo.height = window.innerHeight;
-                                demo.canvas.width = demo.width * demo.dpr;
-                                demo.canvas.height = demo.height * demo.dpr;
-                            }
-                            
-                            demo.step = function(time, lag) {
-                                // localize common references
-                                var demo = window.demo;
-                                var speed = demo.speed;
-                                var width = demo.width;
-                                var height = demo.height;
-                                var wind = demo.wind;
-                                var rain = demo.rain;
-                                var rain_pool = demo.rain_pool;
-                                var drops = demo.drops;
-                                var drop_pool = demo.drop_pool;
-                                
-                                // multiplier for physics
-                                var multiplier = speed * lag;
-                                
-                                // spawn drops
-                                demo.drop_time += time * speed;
-                                while (demo.drop_time > demo.drop_delay) {
-                                    demo.drop_time -= demo.drop_delay;
-                                    var new_rain = rain_pool.pop() || new Rain();
-                                    new_rain.init();
-                                    var wind_expand = Math.abs(height / new_rain.speed * wind); // expand spawn width as wind increases
-                                    var spawn_x = Math.random() * (width + wind_expand);
-                                    if (wind > 0) spawn_x -= wind_expand;
-                                    new_rain.x = spawn_x;
-                                    rain.push(new_rain);
-                                }
-                                
-                                // rain physics
-                                for (var i = rain.length - 1; i >= 0; i--) {
-                                    var r = rain[i];
-                                    r.y += r.speed * r.z * multiplier;
-                                    r.x += r.z * wind * multiplier;
-                                    // remove rain when out of view
-                                    if (r.y > height) {
-                                        // if rain reached bottom of view, show a splash
-                                        r.splash();
                                     }
-                                    // recycle rain
-                                    if (r.y > height + Rain.height * r.z || (wind < 0 && r.x < wind) || (wind > 0 && r.x > width + wind)) {
-                                        r.recycle();
-                                        rain.splice(i, 1);
-                                    }
+                                    // resize
+                                    demo.width = window.innerWidth;
+                                    demo.height = window.innerHeight;
+                                    demo.canvas.width = demo.width * demo.dpr;
+                                    demo.canvas.height = demo.height * demo.dpr;
                                 }
-                                
-                                // splash drop physics
-                                var drop_max_speed = Drop.max_speed;
-                                for (var i = drops.length - 1; i >= 0; i--) {
-                                    var d = drops[i];
-                                    d.x += d.speed_x * multiplier;
-                                    d.y += d.speed_y * multiplier;
-                                    // apply gravity - magic number 0.3 represents a faked gravity constant
-                                    d.speed_y += 0.3 * multiplier;
-                                    // apply wind (but scale back the force)
-                                    d.speed_x += wind / 25 * multiplier;
-                                    if (d.speed_x < -drop_max_speed) {
-                                        d.speed_x = -drop_max_speed;
-                                    }else if (d.speed_x > drop_max_speed) {
-                                        d.speed_x = drop_max_speed;
-                                    }
-                                    // recycle
-                                    if (d.y > height + d.radius) {
-                                        d.recycle();
-                                        drops.splice(i, 1);
-                                    }
-                                }
-                                
-                                demo.draw();
-                            }
-                            
-                            demo.draw = function() {
-                                // localize common references
-                                var demo = window.demo;
-                                var width = demo.width;
-                                var height = demo.height;
-                                var dpr = demo.dpr;
-                                var rain = demo.rain;
-                                var drops = demo.drops;
-                                var ctx = demo.ctx;
-                                
-                                // start fresh
-                                ctx.clearRect(0, 0, width*dpr, height*dpr);
-                                
-                                // draw rain (trace all paths first, then stroke once)
-                                ctx.beginPath();
-                                var rain_height = Rain.height * dpr;
-                                for (var i = rain.length - 1; i >= 0; i--) {
-                                    var r = rain[i];
-                                    var real_x = r.x * dpr;
-                                    var real_y = r.y * dpr;
-                                    ctx.moveTo(real_x, real_y);
-                                    // magic number 1.5 compensates for lack of trig in drawing angled rain
-                                    ctx.lineTo(real_x - demo.wind * r.z * dpr * 1.5, real_y - rain_height * r.z);
-                                }
-                                ctx.lineWidth = Rain.width * dpr;
-                                ctx.strokeStyle = demo.rain_color;
-                                ctx.stroke();
-                                
-                                // draw splash drops (just copy pre-rendered canvas)
-                                for (var i = drops.length - 1; i >= 0; i--) {
-                                    var d = drops[i];
-                                    var real_x = d.x * dpr - d.radius;
-                                    var real_y = d.y * dpr - d.radius;
-                                    ctx.drawImage(d.canvas, real_x, real_y);
-                                }
-                            }
-                            
-                            
-                            // Rain definition
-                            function Rain() {
-                                this.x = 0;
-                                this.y = 0;
-                                this.z = 0;
-                                this.speed = 25;
-                                this.splashed = false;
-                            }
-                            Rain.width = 2;
-                            Rain.height = 40;
-                            Rain.prototype.init = function() {
-                                this.y = Math.random() * -100;
-                                this.z = Math.random() * 0.5 + 0.5;
-                                this.splashed = false;
-                            }
-                            Rain.prototype.recycle = function() {
-                                demo.rain_pool.push(this);
-                            }
-                            // recycle rain particle and create a burst of droplets
-                            Rain.prototype.splash = function() {
-                                if (!this.splashed) {
-                                    this.splashed = true;
+
+                                demo.step = function (time, lag) {
+                                    // localize common references
+                                    var demo = window.demo;
+                                    var speed = demo.speed;
+                                    var width = demo.width;
+                                    var height = demo.height;
+                                    var wind = demo.wind;
+                                    var rain = demo.rain;
+                                    var rain_pool = demo.rain_pool;
                                     var drops = demo.drops;
                                     var drop_pool = demo.drop_pool;
-                            
-                                    for (var i=0; i<16; i++) {
-                                        var drop = drop_pool.pop() || new Drop();
-                                        drops.push(drop);
-                                        drop.init(this.x);
+
+                                    // multiplier for physics
+                                    var multiplier = speed * lag;
+
+                                    // spawn drops
+                                    demo.drop_time += time * speed;
+                                    while (demo.drop_time > demo.drop_delay) {
+                                        demo.drop_time -= demo.drop_delay;
+                                        var new_rain = rain_pool.pop() || new Rain();
+                                        new_rain.init();
+                                        var wind_expand = Math.abs(height / new_rain.speed * wind); // expand spawn width as wind increases
+                                        var spawn_x = Math.random() * (width + wind_expand);
+                                        if (wind > 0) spawn_x -= wind_expand;
+                                        new_rain.x = spawn_x;
+                                        rain.push(new_rain);
+                                    }
+
+                                    // rain physics
+                                    for (var i = rain.length - 1; i >= 0; i--) {
+                                        var r = rain[i];
+                                        r.y += r.speed * r.z * multiplier;
+                                        r.x += r.z * wind * multiplier;
+                                        // remove rain when out of view
+                                        if (r.y > height) {
+                                            // if rain reached bottom of view, show a splash
+                                            r.splash();
+                                        }
+                                        // recycle rain
+                                        if (r.y > height + Rain.height * r.z || (wind < 0 && r.x < wind) || (wind > 0 && r.x > width + wind)) {
+                                            r.recycle();
+                                            rain.splice(i, 1);
+                                        }
+                                    }
+
+                                    // splash drop physics
+                                    var drop_max_speed = Drop.max_speed;
+                                    for (var i = drops.length - 1; i >= 0; i--) {
+                                        var d = drops[i];
+                                        d.x += d.speed_x * multiplier;
+                                        d.y += d.speed_y * multiplier;
+                                        // apply gravity - magic number 0.3 represents a faked gravity constant
+                                        d.speed_y += 0.3 * multiplier;
+                                        // apply wind (but scale back the force)
+                                        d.speed_x += wind / 25 * multiplier;
+                                        if (d.speed_x < -drop_max_speed) {
+                                            d.speed_x = -drop_max_speed;
+                                        } else if (d.speed_x > drop_max_speed) {
+                                            d.speed_x = drop_max_speed;
+                                        }
+                                        // recycle
+                                        if (d.y > height + d.radius) {
+                                            d.recycle();
+                                            drops.splice(i, 1);
+                                        }
+                                    }
+
+                                    demo.draw();
+                                }
+
+                                demo.draw = function () {
+                                    // localize common references
+                                    var demo = window.demo;
+                                    var width = demo.width;
+                                    var height = demo.height;
+                                    var dpr = demo.dpr;
+                                    var rain = demo.rain;
+                                    var drops = demo.drops;
+                                    var ctx = demo.ctx;
+
+                                    // start fresh
+                                    ctx.clearRect(0, 0, width * dpr, height * dpr);
+
+                                    // draw rain (trace all paths first, then stroke once)
+                                    ctx.beginPath();
+                                    var rain_height = Rain.height * dpr;
+                                    for (var i = rain.length - 1; i >= 0; i--) {
+                                        var r = rain[i];
+                                        var real_x = r.x * dpr;
+                                        var real_y = r.y * dpr;
+                                        ctx.moveTo(real_x, real_y);
+                                        // magic number 1.5 compensates for lack of trig in drawing angled rain
+                                        ctx.lineTo(real_x - demo.wind * r.z * dpr * 1.5, real_y - rain_height * r.z);
+                                    }
+                                    ctx.lineWidth = Rain.width * dpr;
+                                    ctx.strokeStyle = demo.rain_color;
+                                    ctx.stroke();
+
+                                    // draw splash drops (just copy pre-rendered canvas)
+                                    for (var i = drops.length - 1; i >= 0; i--) {
+                                        var d = drops[i];
+                                        var real_x = d.x * dpr - d.radius;
+                                        var real_y = d.y * dpr - d.radius;
+                                        ctx.drawImage(d.canvas, real_x, real_y);
                                     }
                                 }
-                            }
-                            
-                            
-                            // Droplet definition
-                            function Drop() {
-                                this.x = 0;
-                                this.y = 0;
-                                this.radius = Math.round(Math.random() * 2 + 1) * demo.dpr;
-                                this.speed_x = 0;
-                                this.speed_y = 0;
-                                this.canvas = document.createElement('canvas');
-                                this.ctx = this.canvas.getContext('2d');
-                                
-                                // render once and cache
-                                var diameter = this.radius * 2;
-                                this.canvas.width = diameter;
-                                this.canvas.height = diameter;
-                            
-                                var grd = this.ctx.createRadialGradient(this.radius, this.radius , 1, this.radius, this.radius, this.radius);
-                                grd.addColorStop(0, demo.rain_color);
-                                grd.addColorStop(1, demo.rain_color_clear);
-                                this.ctx.fillStyle = grd;
-                                this.ctx.fillRect(0, 0, diameter, diameter);
-                            }
-                            
-                            Drop.max_speed = 5;
-                            
-                            Drop.prototype.init = function(x) {
-                                this.x = x;
-                                this.y = demo.height;
-                                var angle = Math.random() * Math.PI - (Math.PI * 0.5);
-                                var speed = Math.random() * Drop.max_speed;
-                                this.speed_x = Math.sin(angle) * speed;
-                                this.speed_y = -Math.cos(angle) * speed;
-                            }
-                            Drop.prototype.recycle = function() {
-                                demo.drop_pool.push(this);
-                            }
-                            
-                            
-                            
-                            
-                            // handle interaction
-                            demo.mouseHandler = function(evt) {
-                                demo.updateCursor(evt.clientX, evt.clientY);
-                            }
-                            demo.touchHandler = function(evt) {
-                                evt.preventDefault();
-                                var touch = evt.touches[0];
-                                demo.updateCursor(touch.clientX, touch.clientY);
-                            }
-                            demo.updateCursor = function(x, y) {
-                                x /= demo.width;
-                                y /= demo.height;
-                                var y_inverse = (1 - y);
-                                
-                                demo.drop_delay = y_inverse*y_inverse*y_inverse * 100 + 2;
-                                demo.wind = (x - 0.5) * 50;
-                            }
-                            
-                            document.addEventListener('mousemove', demo.mouseHandler);
-                            document.addEventListener('touchstart', demo.touchHandler);
-                            document.addEventListener('touchmove', demo.touchHandler);
-                            
-                            
-                            
-                            // Frame ticker helper module
-                            var Ticker = (function(){
-                                var PUBLIC_API = {};
-                            
-                                // public
-                                // will call function reference repeatedly once registered, passing elapsed time and a lag multiplier as parameters
-                                PUBLIC_API.addListener = function addListener(fn) {
-                                    if (typeof fn !== 'function') throw('Ticker.addListener() requires a function reference passed in.');
-                            
-                                    listeners.push(fn);
-                            
-                                    // start frame-loop lazily
-                                    if (!started) {
-                                        started = true;
+
+
+                                // Rain definition
+                                function Rain() {
+                                    this.x = 0;
+                                    this.y = 0;
+                                    this.z = 0;
+                                    this.speed = 25;
+                                    this.splashed = false;
+                                }
+                                Rain.width = 2;
+                                Rain.height = 40;
+                                Rain.prototype.init = function () {
+                                    this.y = Math.random() * -100;
+                                    this.z = Math.random() * 0.5 + 0.5;
+                                    this.splashed = false;
+                                }
+                                Rain.prototype.recycle = function () {
+                                    demo.rain_pool.push(this);
+                                }
+                                // recycle rain particle and create a burst of droplets
+                                Rain.prototype.splash = function () {
+                                    if (!this.splashed) {
+                                        this.splashed = true;
+                                        var drops = demo.drops;
+                                        var drop_pool = demo.drop_pool;
+
+                                        for (var i = 0; i < 16; i++) {
+                                            var drop = drop_pool.pop() || new Drop();
+                                            drops.push(drop);
+                                            drop.init(this.x);
+                                        }
+                                    }
+                                }
+
+
+                                // Droplet definition
+                                function Drop() {
+                                    this.x = 0;
+                                    this.y = 0;
+                                    this.radius = Math.round(Math.random() * 2 + 1) * demo.dpr;
+                                    this.speed_x = 0;
+                                    this.speed_y = 0;
+                                    this.canvas = document.createElement('canvas');
+                                    this.ctx = this.canvas.getContext('2d');
+
+                                    // render once and cache
+                                    var diameter = this.radius * 2;
+                                    this.canvas.width = diameter;
+                                    this.canvas.height = diameter;
+
+                                    var grd = this.ctx.createRadialGradient(this.radius, this.radius, 1, this.radius, this.radius, this.radius);
+                                    grd.addColorStop(0, demo.rain_color);
+                                    grd.addColorStop(1, demo.rain_color_clear);
+                                    this.ctx.fillStyle = grd;
+                                    this.ctx.fillRect(0, 0, diameter, diameter);
+                                }
+
+                                Drop.max_speed = 5;
+
+                                Drop.prototype.init = function (x) {
+                                    this.x = x;
+                                    this.y = demo.height;
+                                    var angle = Math.random() * Math.PI - (Math.PI * 0.5);
+                                    var speed = Math.random() * Drop.max_speed;
+                                    this.speed_x = Math.sin(angle) * speed;
+                                    this.speed_y = -Math.cos(angle) * speed;
+                                }
+                                Drop.prototype.recycle = function () {
+                                    demo.drop_pool.push(this);
+                                }
+
+
+
+
+                                // handle interaction
+                                demo.mouseHandler = function (evt) {
+                                    demo.updateCursor(evt.clientX, evt.clientY);
+                                }
+                                demo.touchHandler = function (evt) {
+                                    evt.preventDefault();
+                                    var touch = evt.touches[0];
+                                    demo.updateCursor(touch.clientX, touch.clientY);
+                                }
+                                demo.updateCursor = function (x, y) {
+                                    x /= demo.width;
+                                    y /= demo.height;
+                                    var y_inverse = (1 - y);
+
+                                    demo.drop_delay = y_inverse * y_inverse * y_inverse * 100 + 2;
+                                    demo.wind = (x - 0.5) * 50;
+                                }
+
+                                document.addEventListener('mousemove', demo.mouseHandler);
+                                document.addEventListener('touchstart', demo.touchHandler);
+                                document.addEventListener('touchmove', demo.touchHandler);
+
+
+
+                                // Frame ticker helper module
+                                var Ticker = (function () {
+                                    var PUBLIC_API = {};
+
+                                    // public
+                                    // will call function reference repeatedly once registered, passing elapsed time and a lag multiplier as parameters
+                                    PUBLIC_API.addListener = function addListener(fn) {
+                                        if (typeof fn !== 'function') throw ('Ticker.addListener() requires a function reference passed in.');
+
+                                        listeners.push(fn);
+
+                                        // start frame-loop lazily
+                                        if (!started) {
+                                            started = true;
+                                            queueFrame();
+                                        }
+                                    };
+
+                                    // private
+                                    var started = false;
+                                    var last_timestamp = 0;
+                                    var listeners = [];
+                                    // queue up a new frame (calls frameHandler)
+                                    function queueFrame() {
+                                        if (window.requestAnimationFrame) {
+                                            requestAnimationFrame(frameHandler);
+                                        } else {
+                                            webkitRequestAnimationFrame(frameHandler);
+                                        }
+                                    }
+                                    function frameHandler(timestamp) {
+                                        var frame_time = timestamp - last_timestamp;
+                                        last_timestamp = timestamp;
+                                        // make sure negative time isn't reported (first frame can be whacky)
+                                        if (frame_time < 0) {
+                                            frame_time = 17;
+                                        }
+                                        // - cap minimum framerate to 15fps[~68ms] (assuming 60fps[~17ms] as 'normal')
+                                        else if (frame_time > 68) {
+                                            frame_time = 68;
+                                        }
+
+                                        // fire custom listeners
+                                        for (var i = 0, len = listeners.length; i < len; i++) {
+                                            listeners[i].call(window, frame_time, frame_time / 16.67);
+                                        }
+
+                                        // always queue another frame
                                         queueFrame();
                                     }
-                                };
-                            
-                                // private
-                                var started = false;
-                                var last_timestamp = 0;
-                                var listeners = [];
-                                // queue up a new frame (calls frameHandler)
-                                function queueFrame() {
-                                    if (window.requestAnimationFrame) {
-                                        requestAnimationFrame(frameHandler);
-                                    } else {
-                                        webkitRequestAnimationFrame(frameHandler);
-                                    }
-                                }
-                                function frameHandler(timestamp) {
-                                    var frame_time = timestamp - last_timestamp;
-                                    last_timestamp = timestamp;
-                                    // make sure negative time isn't reported (first frame can be whacky)
-                                    if (frame_time < 0) {
-                                        frame_time = 17;
-                                    }
-                                    // - cap minimum framerate to 15fps[~68ms] (assuming 60fps[~17ms] as 'normal')
-                                    else if (frame_time > 68) {
-                                        frame_time = 68;
-                                    }
-                            
-                                    // fire custom listeners
-                                    for (var i = 0, len = listeners.length; i < len; i++) {
-                                        listeners[i].call(window, frame_time, frame_time / 16.67);
-                                    }
-                                    
-                                    // always queue another frame
-                                    queueFrame();
-                                }
-                            
-                                return PUBLIC_API;
-                            }());
+
+                                    return PUBLIC_API;
+                                }());
                             </script>
               </textarea>
-                </div>
-    
             </div>
+
         </div>
     </div>
+</div>
 
 
 <div class="modal fade" id="firework" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Physics Ball Code</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Rain Stimulation Code</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -589,7 +888,7 @@
             <div class="modal-body">
                 <textarea spellcheck="false" class="form-control" name="" id="" cols="20" rows="30">
             <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-            <script src="http://kerala.me/promo/lights/f.js"></script>
+            <script src="https://kerala.me/promo/lights/f.js"></script>
             
             <style type="text/css">
             canvas {
@@ -630,7 +929,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Physics Ball Code</h5>
+                <h5 class="modal-title" id="exampleModalLabel">React Timer Code</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
