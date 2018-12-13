@@ -45,9 +45,9 @@ router.post('/contact',(req,res,next)=>{
         })
     }else{
         let mail={
-            from:'iTutor',
+            from:'i2tr',
             to:req.body.email,
-            subject:'Message from iTutor',
+            subject:'Message from i2tr',
             text:req.body.message
         }
         transporter.sendMail(mail,(error,info)=>{

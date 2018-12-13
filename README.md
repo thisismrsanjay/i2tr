@@ -1,7 +1,4 @@
 
-https://murmuring-escarpment-61325.herokuapp.com/
-
-
 * [x] Validation server:(Express-Validator)
 * [x] Email(Nodemailer)
 * [x] Registration 
@@ -33,7 +30,7 @@ chat end?
 * [x]  join
 * [] login is not persistent
 * [x] not secure redirect
-* [] pic for user
+* [] pic for user  
 ml5.js example 
 physics example try page
 404?

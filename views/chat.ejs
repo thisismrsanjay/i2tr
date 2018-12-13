@@ -78,7 +78,7 @@ $('#b').mousedown(handle_mousedown);
     let userData1 = $('#userData1').val();
     let userData2 = $('#userData2').val();
     let chatUser = $("#chat-user");
-    let sanjayButton = $("#sanjayButton");
+    let danteButton = $("#danteButton");
     
     let socket = io.connect( { query: `name=${userData1}` });
     let userData = {
@@ -86,7 +86,7 @@ $('#b').mousedown(handle_mousedown);
         picture: userData2
     }
 
-    sanjayButton.click(()=>{
+    danteButton.click(()=>{
         
         socket.emit('run');
     });
