@@ -1,12 +1,12 @@
 {
-  "name": "i2tr",
+  "name": "itutor",
   "version": "1.0.0",
   "description": "online platform to learn code easily",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
-  "author": "thisismrsdante",
+  "author": "thisismrssanjay",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
