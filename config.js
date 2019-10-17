@@ -2,8 +2,8 @@ module.exports={
     mailer:{
         service:'gmail',
         auth:{
-            user:'tutorsfactory@gmail.com',
-            pass:'@suyashsharma.123',
+            user:'reacheventup@gmail.com',
+            pass:'qazwsx369',
         }
     },
     database : 'mongodb://sanjay:sanjay123@ds121183.mlab.com:21183/itutor',

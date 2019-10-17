@@ -54,7 +54,8 @@ router.post('/contact',(req,res,next)=>{
             if(error){
                 console.log(error);
             }
-            res.status(200).send("sent ");
+            res.render('/contact','contacts');
+            console.log(mail);
         })
 
        
