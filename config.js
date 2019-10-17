@@ -3,7 +3,7 @@ module.exports={
         service:'gmail',
         auth:{
             user:'tutorsfactory@gmail.com',
-            pass:'Isuyash210@123',
+            pass:'@suyashsharma.123',
         }
     },
     database : 'mongodb://sanjay:sanjay123@ds121183.mlab.com:21183/itutor',

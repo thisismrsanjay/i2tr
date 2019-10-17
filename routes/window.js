@@ -14,6 +14,9 @@ router.get('/createWindow',ensureAuthenticated,(req,res)=>{
     })
 })
 
+router.get('/tutor',(req,res,next)=>{
+    res.render('tutor',{title:'Tutor'})
+})
 router.get('/window/:id',ensureAuthenticated,(req,res)=>{
     if(req.params.id){
         Window.findOne({_id:req.params.id},(err,data)=>{
