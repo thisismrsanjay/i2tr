@@ -55,7 +55,7 @@ router.post('/contact',(req,res,next)=>{
                 console.log(error);
             }
             res.render('/contact','contacts');
-            console.log(mail);
+            console.log(info,mail);
         })
 
        

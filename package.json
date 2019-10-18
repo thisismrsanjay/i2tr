@@ -18,7 +18,7 @@
     "force-ssl-heroku": "^1.0.2",
     "mongoose": "^5.3.1",
     "morgan": "^1.9.1",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^4.7.0",
     "ot": "git+https://github.com/Operational-Transformation/ot.js.git",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
