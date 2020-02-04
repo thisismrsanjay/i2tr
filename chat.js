@@ -13,7 +13,7 @@ module.exports = (io)=>{
     //     })
     
     // })
-    
+    var line_history = [];
     io.on('connection',(socket)=>{
         
         let str = 
@@ -65,6 +65,18 @@ h1{text-align:center;}
             io.to(socket.window).emit('user disconnected');
             socket.leave(socket.window);
         })
+        
+
+        for (var i in line_history) {
+            socket.emit('draw_line', { line: line_history[i] } );
+         }
+         socket.on('draw_line', function (data) {
+            // add received line to history 
+            line_history.push(data.line);
+            // send line to all clients
+            io.emit('draw_line', { line: data.line });
+         });
+
     })
 }
 

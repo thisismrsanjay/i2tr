@@ -17,6 +17,9 @@ router.get('/createWindow',ensureAuthenticated,(req,res)=>{
 router.get('/tutor',(req,res,next)=>{
     res.render('tutor',{title:'Tutor'})
 })
+router.get('/pad',(req,res,next)=>{
+    res.render('pad',{title:'Pad'})
+})
 router.get('/code',(req,res,next)=>{
     res.render('code',{titlel:'Code'})
 })

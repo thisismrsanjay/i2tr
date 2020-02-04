@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -87,25 +86,36 @@
                   
                 </div>
               </nav>
-              <main role="main" class="container">
+
+<style>
+body{
+    cursor: crosshair;
+}
+ #canvas {
+    
+    display: block;
+    
+ }
+</style>
 
 
-                  <% if(errors) {%>
-                    <% errors.forEach((error)=>{  %>
-                      <div style="border-radius: 8px;" class="alert alert-info alert-dismissible fade show" role="alert">
-                          <strong>Holy guacamole!</strong> <%= error.msg %>
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                      
-                      <%})%>
-                  <%}%>
-                  
-               <% include join %>
-              <% if(user){ %>
-                <% include connect %>                  
-              <% } %>
-            
-                    
-                        
+<script src="/socket.io/socket.io.js"></script>
+<script src="/lib/pad.js"></script>
+  
+
+<canvas id="drawing" style="border: 2px solid red; margin-top: -70px;"></canvas>
+
+
+
+
+
+
+
+</body>
+
+
+</html>
+
+
+
+

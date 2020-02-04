@@ -15,6 +15,7 @@ const userSchema  = new mongoose.Schema({
     password:{
         type:String,    
     },
+
 })
 userSchema.methods.gravatar = function(size) {
     if (!this.size) size = 200;
@@ -24,3 +25,19 @@ userSchema.methods.gravatar = function(size) {
   }
 
   module.exports = mongoose.model('User',userSchema);
+
+/*
+  coursesTeach:[{
+      course:{
+          type:Schema.Types.ObjectId,
+          ref:'Course'
+      }
+  }],
+  coursesTaken:[{
+      course:{
+          type:Schema.Types.ObjectId,
+          ref:'Course'
+      }
+  }]
+
+*/
