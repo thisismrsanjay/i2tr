@@ -1,12 +1,12 @@
 module.exports={
     mailer:{
-        service:'gmail',
+        service:'Gmail',
         auth:{
             user:'reacheventup@gmail.com',
             pass:'qazwsx369',
         }
     },
-    database : 'mongodb://sanjay:sanjay123@ds121183.mlab.com:21183/itutor',
+    database : 'mongodb+srv://sanjay:sanjay123@cluster0.49i3d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     secret:'glorious',
     facebook:{
         clientID:'255732381795481',
