@@ -6,7 +6,7 @@ module.exports={
             pass:'qazwsx369',
         }
     },
-    database : 'mongodb+srv://sanjay:sanjay123@cluster0.49i3d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    database : 'mongodb+srv://thisismrsanjay:test@cluster0.j0dosld.mongodb.net/?retryWrites=true&w=majority',
     secret:'glorious',
     facebook:{
         clientID:'255732381795481',

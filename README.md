@@ -1,5 +1,5 @@
+https://itutorsanjay.onrender.com/
 
-https://murmuring-escarpment-61325.herokuapp.com/
 
 ![git hub ](https://github.com/thisismrsanjay/i2tr/blob/master/i2tr.pdf)
 * [x] Validation server:(Express-Validator)
